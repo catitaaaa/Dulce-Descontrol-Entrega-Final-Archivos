@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Cotizar Pedido - Dulce Descontrol</title>
+            <link rel="icon" type="image/png" href="logo_dulce_descontrol.png" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = { theme: { extend: { colors: { primary: "#9a3a5a", "primary-container": "#b95272", "error-container": "#ffdad6", error: "#ba1a1a", "on-surface": "#1c1b1d" }, fontFamily: { sans: ["Montserrat"] } } } };
+    </script>
+    <style> 
+        body { background-color: #F3EEF1; }
+        select { 
+            -webkit-appearance: none !important; 
+            -moz-appearance: none !important; 
+            appearance: none !important;
+            background-image: none !important;
+        }
+        select::-ms-expand { display: none !important; }
+        select option {
+            background-color: #fdf8fb; 
+            color: #9a3a5a; 
+            font-weight: 600;
+            padding: 12px;
+        }
+        select option:checked {
+            background-color: #f9d8e4; 
+            color: #9a3a5a;
+        }
+        select:focus {
+            background-color: #fff5f8 !important; 
+        }
+    </style>
+</head>
+<body class="font-sans text-on-surface pb-20">
+
+    <header class="fixed top-0 left-0 w-full z-50 flex items-center px-4 sm:px-6 h-16 md:h-20 bg-white/80 backdrop-blur-md shadow-sm">
+        <a href="index.html" class="flex items-center gap-2 text-primary font-bold hover:opacity-80 transition-opacity">
+            <span class="material-symbols-outlined">arrow_back</span> Volver a la tienda
+        </a>
+    </header>
+
+    <main class="max-w-4xl mx-auto pt-24 sm:pt-28 px-4 md:px-8">
+        
+        <div id="pantalla-formulario" class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            
+            <div class="md:col-span-2 space-y-6">
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-black text-primary leading-tight">Configura tu Pedido</h1>
+                    <p class="text-gray-500 font-medium text-sm mt-1">Completa los datos para agendar tu torta soñada.</p>
+                </div>
+
+                <form id="form-pedido" onsubmit="procesarPedido(event)" class="space-y-6 sm:space-y-8 bg-white p-5 sm:p-6 md:p-8 rounded-[2rem] shadow-sm border border-gray-100">
+                    
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-gray-800 mb-3 flex items-center gap-2"><span class="material-symbols-outlined text-primary">cake</span> ¿Qué Torta deseas?</h3>
+                        <div class="relative">
+                            <select id="torta-base" required onchange="actualizarResumen()" class="w-full border-2 border-gray-200 rounded-xl p-3 sm:p-4 pr-10 focus:border-primary font-bold text-gray-700 bg-gray-50 cursor-pointer transition-colors hover:border-pink-300 outline-none text-sm sm:text-base">
+                            </select>
+                            <span class="material-symbols-outlined absolute right-4 top-3.5 sm:top-4 text-gray-400 pointer-events-none font-bold">expand_more</span>
+                        </div>
+                    </div>
+
+                    <div id="contenedor-personalizacion" class="hidden space-y-4 pt-4 border-t border-gray-100">
+                        <h4 class="text-xs font-bold text-primary uppercase tracking-wider">Diseña tu Torta (100% Personalizada)</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">Bizcocho *</label>
+                                <div class="relative">
+                                    <select id="custom-bizcocho" onchange="actualizarResumen()" class="w-full border-2 border-gray-200 p-2.5 pr-8 rounded-xl text-xs font-semibold focus:border-primary outline-none bg-gray-50 cursor-pointer">
+                                    </select>
+                                    <span class="material-symbols-outlined absolute right-2 top-2.5 text-gray-400 pointer-events-none text-sm font-bold">expand_more</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">Relleno Principal *</label>
+                                <div class="relative">
+                                    <select id="custom-relleno1" onchange="actualizarResumen()" class="w-full border-2 border-gray-200 p-2.5 pr-8 rounded-xl text-xs font-semibold focus:border-primary outline-none bg-gray-50 cursor-pointer">
+                                    </select>
+                                    <span class="material-symbols-outlined absolute right-2 top-2.5 text-gray-400 pointer-events-none text-sm font-bold">expand_more</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">Tipo de Cubierta *</label>
+                                <div class="relative">
+                                    <select id="custom-cubierta" onchange="actualizarResumen()" class="w-full border-2 border-gray-200 p-2.5 pr-8 rounded-xl text-xs font-semibold focus:border-primary outline-none bg-gray-50 cursor-pointer">
+                                    </select>
+                                    <span class="material-symbols-outlined absolute right-2 top-2.5 text-gray-400 pointer-events-none text-sm font-bold">expand_more</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 pt-4 border-t border-gray-100">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-3">Cantidad de Porciones</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="porciones" value="15" onchange="actualizarResumen()" class="peer sr-only" checked>
+                                    <div class="py-2 flex flex-col items-center justify-center border-2 border-gray-200 rounded-xl peer-checked:border-primary peer-checked:bg-pink-50 transition-all">
+                                        <span class="font-bold text-gray-500 peer-checked:text-primary text-sm sm:text-base">15p</span>
+                                        <span class="text-[9px] font-bold text-gray-400 peer-checked:text-primary/70 uppercase">Base</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="porciones" value="20" onchange="actualizarResumen()" class="peer sr-only">
+                                    <div class="py-2 flex flex-col items-center justify-center border-2 border-gray-200 rounded-xl peer-checked:border-primary peer-checked:bg-pink-50 transition-all">
+                                        <span class="font-bold text-gray-500 peer-checked:text-primary text-sm sm:text-base">20p</span>
+                                        <span class="text-[9px] font-bold text-gray-400 peer-checked:text-primary/70 uppercase">+$5.000</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="porciones" value="30" onchange="actualizarResumen()" class="peer sr-only">
+                                    <div class="py-2 flex flex-col items-center justify-center border-2 border-gray-200 rounded-xl peer-checked:border-primary peer-checked:bg-pink-50 transition-all">
+                                        <span class="font-bold text-gray-500 peer-checked:text-primary text-sm sm:text-base">30p</span>
+                                        <span class="text-[9px] font-bold text-gray-400 peer-checked:text-primary/70 uppercase">+$10.000</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-3">Forma del Molde</label>
+                            <div class="relative h-[48px] sm:h-[52px]">
+                                <select id="forma" onchange="actualizarResumen()" class="w-full h-full border-2 border-gray-200 rounded-xl p-3 sm:p-4 pr-10 focus:border-primary font-bold text-gray-700 bg-gray-50 cursor-pointer transition-colors hover:border-pink-300 outline-none text-sm sm:text-base">
+                                    <option value="Redonda">Redonda Clásica</option>
+                                    <option value="Cuadrada">Cuadrada Moderna</option>
+                                    <option value="Corazón">Forma de Corazón</option>
+                                </select>
+                                <span class="material-symbols-outlined absolute right-3 top-3.5 sm:top-4 text-gray-400 pointer-events-none">expand_more</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100">
+                        <label class="block text-sm font-bold text-gray-700 mb-3">Método de Entrega</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="tipo_entrega" value="Retiro" onchange="actualizarResumen()" class="peer sr-only" checked>
+                                <div class="p-3 sm:p-4 border-2 border-gray-200 rounded-2xl peer-checked:border-primary peer-checked:bg-pink-50 text-center transition-all flex flex-row sm:flex-col items-center justify-center gap-3 sm:gap-0 hover:bg-gray-50">
+                                    <span class="material-symbols-outlined text-2xl sm:text-3xl sm:mb-1 text-gray-400 peer-checked:text-primary">storefront</span>
+                                    <div class="flex flex-col text-left sm:text-center">
+                                        <p class="font-bold text-sm text-gray-500 peer-checked:text-primary">Retiro en Local</p>
+                                        <span class="text-[10px] font-bold text-gray-400 peer-checked:text-primary/70 uppercase sm:mt-1">Gratis</span>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="tipo_entrega" value="Domicilio" onchange="actualizarResumen()" class="peer sr-only">
+                                <div class="p-3 sm:p-4 border-2 border-gray-200 rounded-2xl peer-checked:border-blue-500 peer-checked:bg-blue-50 text-center transition-all flex flex-row sm:flex-col items-center justify-center gap-3 sm:gap-0 hover:bg-gray-50">
+                                    <span class="material-symbols-outlined text-2xl sm:text-3xl sm:mb-1 text-gray-400 peer-checked:text-blue-600">local_shipping</span>
+                                    <div class="flex flex-col text-left sm:text-center">
+                                        <p class="font-bold text-sm text-gray-500 peer-checked:text-blue-700">Envío a Domicilio</p>
+                                        <span class="text-[10px] font-bold text-blue-400 peer-checked:text-blue-700/70 uppercase sm:mt-1">+$4.500</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100">
+                        <h3 class="text-sm font-bold text-gray-700 mb-4 uppercase tracking-wider">Tus Datos de Contacto</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">Nombre Completo *</label>
+                                <input type="text" id="nombre" required placeholder="Tu Nombre completo" class="w-full h-[44px] sm:h-[46px] border-2 border-gray-200 px-4 rounded-xl focus:border-primary outline-none text-sm font-medium">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">WhatsApp *</label>
+                                <div class="flex border-2 border-gray-200 rounded-xl overflow-hidden focus-within:border-primary transition-colors bg-white h-[44px] sm:h-[46px]">
+                                    <span class="bg-gray-50 px-3 text-gray-500 font-semibold text-xs md:text-sm border-r border-gray-200 flex items-center shrink-0 select-none">+56 9</span>
+                                    <input type="tel" id="fono" required maxlength="8" pattern="[0-9]{8}" placeholder="12345678" title="Ingresa los 8 dígitos de tu número" class="w-full px-3 outline-none border-none text-sm font-bold text-gray-700 tracking-widest bg-transparent">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">Correo Electrónico *</label>
+                                <input type="email" id="email" required placeholder="correo@ejemplo.com" class="w-full h-[44px] sm:h-[46px] border-2 border-gray-200 px-4 rounded-xl focus:border-primary outline-none text-sm font-medium">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">Fecha de Entrega *</label>
+                                <input type="date" id="fecha" required class="w-full h-[44px] sm:h-[46px] border-2 border-gray-200 px-4 rounded-xl focus:border-primary outline-none text-sm font-bold text-gray-600">
+                                <p id="texto-alerta-fecha" class="text-[10px] text-primary font-bold mt-1 ml-1 hidden">Esta torta requiere más días de preparación.</p>
+                            </div>
+
+                            <div id="contenedor-direccion" class="hidden sm:col-span-2">
+                                <label class="block text-xs font-bold text-gray-500 mb-1">Dirección de Envío *</label>
+                                <input type="text" id="direccion" placeholder="Calle, Número, Comuna, Depto..." class="w-full h-[44px] sm:h-[46px] border-2 border-gray-200 px-4 rounded-xl focus:border-primary outline-none text-sm font-medium">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Notas especiales (Dedicatorias, colores, alergias)</label>
+                        <textarea id="notas" rows="3" placeholder="Ej: Que diga 'Feliz Cumpleaños Mamá' en color rosado..." class="w-full border-2 border-gray-200 p-3 rounded-xl focus:border-primary outline-none text-sm resize-none"></textarea>
+                        
+                        <div class="mt-4 bg-gray-50 border border-gray-200 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <div>
+                                <span class="block text-sm font-bold text-gray-700">Foto de Referencia</span>
+                                <span class="text-[10px] text-gray-500">¿Tienes un diseño en mente? Sube la foto aquí.</span>
+                            </div>
+                            <label class="w-full sm:w-auto flex justify-center items-center bg-white border border-gray-300 text-gray-600 px-4 py-2 rounded-lg text-sm sm:text-xs font-bold cursor-pointer hover:bg-gray-100 transition-colors shrink-0">
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">upload</span> Subir
+                                <input type="file" id="foto-ref" accept="image/*" class="hidden" onchange="cargarPrevisualizacionUsuario(event)">
+                            </label>
+                        </div>
+                        <input type="hidden" id="foto-base64">
+                    </div>
+                    
+                    <button type="submit" id="btn-enviar-desktop" class="hidden">Enviar</button>
+                </form>
+            </div>
+
+            <div class="md:col-span-1">
+                <div class="bg-white p-5 sm:p-6 rounded-[2rem] shadow-md border border-gray-100 sticky top-24">
+                    <h3 class="text-xl font-bold text-primary border-b border-gray-100 pb-3 mb-4">Resumen de Compra</h3>
+                    
+                    <div class="w-full h-32 bg-pink-50 rounded-xl overflow-hidden mb-4 border border-pink-100">
+                        <img id="preview-img" src="" class="w-full h-full object-cover" alt="Previsualización">
+                    </div>
+
+                    <div class="space-y-3 mb-6 text-sm">
+                        <div class="flex justify-between items-start">
+                            <span class="text-gray-500 font-bold">Producto:</span>
+                            <span id="resumen-torta" class="font-bold text-right text-gray-800 flex-1 ml-2">Selecciona...</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500 font-bold">Porciones:</span>
+                            <span id="resumen-porciones" class="font-bold text-gray-800">15p</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500 font-bold">Envío:</span>
+                            <span id="resumen-envio" class="font-bold text-gray-800">Gratis</span>
+                        </div>
+                        <div class="flex justify-between border-t border-dashed pt-3">
+                            <span class="text-lg font-bold text-gray-800">Total Est.</span>
+                            <span id="resumen-total" class="text-2xl font-black text-[#D56989]">$0</span>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="document.getElementById('form-pedido').requestSubmit()" class="w-full bg-primary text-white font-bold py-4 rounded-xl hover:opacity-90 transition-opacity shadow-lg flex items-center justify-center gap-2 text-lg">
+                        Confirmar Pedido <span class="material-symbols-outlined">check_circle</span>
+                    </button>
+                    <p class="text-[10px] text-center text-gray-400 mt-3 leading-tight">Al confirmar, enviaremos la solicitud a Martina para validación y coordinación del abono.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="pantalla-exito" class="hidden flex-col items-center justify-center pt-8 md:pt-16 animate-in fade-in zoom-in duration-500">
+            <div class="bg-white rounded-[2rem] shadow-2xl max-w-sm w-full mx-4 sm:mx-0 text-center border border-gray-100 relative overflow-hidden">
+                <div class="w-full h-40 sm:h-52 bg-pink-50 relative overflow-hidden">
+                    <img id="exito-img" src="" class="w-full h-full object-cover object-center block">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <h3 class="absolute bottom-6 left-0 w-full text-white font-black text-xl sm:text-2xl drop-shadow-md tracking-wide">Solicitud Recibida</h3>
+                </div>
+                
+                <div class="p-6 sm:p-8 pt-0">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 bg-green-500 rounded-full flex items-center justify-center text-white mx-auto -mt-7 sm:-mt-8 relative z-10 border-4 border-white shadow-lg mb-4">
+                        <span class="material-symbols-outlined text-3xl sm:text-4xl font-bold">check</span>
+                    </div>
+                    
+                    <h2 class="text-xl sm:text-2xl font-black text-gray-800 mb-1">¡Gracias, <span id="exito-nombre" class="text-primary"></span>!</h2>
+                    <p class="text-xs sm:text-sm text-gray-500 mb-5 font-medium">Tu orden ha sido registrada exitosamente.</p>
+
+                    <div class="bg-gray-50/80 rounded-2xl p-4 sm:p-5 text-left border border-gray-100 space-y-4">
+                        <div class="flex justify-between items-center border-b border-gray-200/60 pb-3">
+                            <span class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider">Orden N°</span>
+                            <span id="exito-orden" class="font-black text-primary text-lg sm:text-xl bg-pink-100 px-2 sm:px-3 py-1 rounded-lg"></span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Detalle del Pedido</span>
+                            <p id="exito-resumen" class="text-xs sm:text-sm font-bold text-gray-700 leading-tight"></p>
+                        </div>
+                        <div class="flex justify-between items-end pt-2">
+                            <div>
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Entrega</span>
+                                <span id="exito-entrega" class="text-[10px] sm:text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded-md border border-blue-200 flex items-center gap-1"></span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Total Est.</span>
+                                <span id="exito-precio" class="font-black text-[#D56989] text-xl sm:text-2xl"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="window.location.href='index.html'" class="w-full bg-primary text-white font-bold py-3 sm:py-4 rounded-xl mt-5 hover:opacity-90 transition-opacity shadow-md text-base sm:text-lg">Volver a la Tienda</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    
+    <script>
+        // === INICIALIZAR FIREBASE CON TUS LLAVES ===
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcq2UigS7iF2PIuGcD3syT31WT_HkcehE",
+            authDomain: "dulce-descontrol-1302a.firebaseapp.com",
+            projectId: "dulce-descontrol-1302a",
+            storageBucket: "dulce-descontrol-1302a.firebasestorage.app",
+            messagingSenderId: "847231136626",
+            appId: "1:847231136626:web:15d6f0c1a9f7d03f4323eb"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        // ============================================
+
+        const catalogo = JSON.parse(localStorage.getItem('catalogo_recetas')) || [];
+        const selectTorta = document.getElementById('torta-base');
+        let imagenSeleccionadaFinal = "";
+
+        function inicializarOpcionesPersonalizadas() {
+            let inv = JSON.parse(localStorage.getItem('inventario_dulce_v2'));
+            if(!inv) {
+                inv = {
+                    harina: { nombre: "Harina 🌾" },
+                    zanahoria: { nombre: "Zanahorias 🥕" },
+                    crema: { nombre: "Queso Cream 🧀" },
+                    azucar: { nombre: "Azúcar Flor 🍬" },
+                    mantequilla: { nombre: "Mantequilla 🧈" }
+                };
+            }
+
+            let bizcochosHTML = '';
+            let rellenosHTML = '';
+            let cubiertasHTML = '';
+
+            for(let key in inv) {
+                if(key === 'huevo' || key === 'manzana') continue; 
+                
+                let lowerName = inv[key].nombre.toLowerCase();
+                let rawName = inv[key].nombre;
+                
+                if(lowerName.includes('bizcocho') || key === 'harina' || key === 'zanahoria') {
+                    let disp = rawName;
+                    if(key === 'harina') disp = 'Bizcocho Clásico de Vainilla';
+                    if(key === 'zanahoria') disp = 'Bizcocho de Zanahoria';
+                    bizcochosHTML += `<option value="${key}">${disp}</option>`;
+                }
+                else if(lowerName.includes('cubierta') || lowerName.includes('fondant') || lowerName.includes('betun') || key === 'mantequilla' || key === 'azucar') {
+                    let disp = rawName;
+                    if(key === 'mantequilla') disp = 'Cubierta de Buttercream';
+                    if(key === 'azucar') disp = 'Cubierta de Glaseado Decorativo';
+                    cubiertasHTML += `<option value="${key}">${disp}</option>`;
+                }
+                else {
+                    let disp = rawName;
+                    if(key === 'crema') disp = 'Relleno de Queso Crema Premium';
+                    rellenosHTML += `<option value="${key}">${disp}</option>`;
+                }
+            }
+
+            if(!bizcochosHTML) bizcochosHTML = `<option value="harina">Bizcocho Clásico</option>`;
+            if(!rellenosHTML) rellenosHTML = `<option value="crema">Relleno de Crema</option>`;
+            if(!cubiertasHTML) cubiertasHTML = `<option value="mantequilla">Buttercream Clásico</option>`;
+
+            document.getElementById('custom-bizcocho').innerHTML = bizcochosHTML;
+            document.getElementById('custom-relleno1').innerHTML = rellenosHTML;
+            document.getElementById('custom-cubierta').innerHTML = cubiertasHTML;
+        }
+
+        function inicializarCatalogo() {
+            inicializarOpcionesPersonalizadas();
+
+            let opcionesHTML = `<option value="" disabled selected>Elige una opción...</option>`;
+            
+            catalogo.forEach(t => {
+                opcionesHTML += `<option value="${t.nombre}" data-precio="${t.precio}" data-img="${t.img}">${t.nombre} - $${t.precio.toLocaleString('es-CL')}</option>`;
+            });
+            
+            opcionesHTML += `<option value="Personalizada" data-precio="30000" data-img="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&q=80">✨ 100% Personalizada (Desde $30.000)</option>`;
+            selectTorta.innerHTML = opcionesHTML;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const tortaPreseleccionada = urlParams.get('torta');
+            if(tortaPreseleccionada) {
+                Array.from(selectTorta.options).forEach(opt => {
+                    if(opt.value === tortaPreseleccionada) selectTorta.value = tortaPreseleccionada;
+                });
+            }
+            actualizarResumen();
+        }
+
+        function actualizarResumen() {
+            if(selectTorta.selectedIndex <= 0) return;
+
+            const opcion = selectTorta.options[selectTorta.selectedIndex];
+            let precioBase = parseInt(opcion.dataset.precio);
+            let imgBase = opcion.dataset.img;
+            let nombreTorta = opcion.value;
+
+            const porciones = parseInt(document.querySelector('input[name="porciones"]:checked').value);
+            
+            let incrementoTamano = 0;
+            if(porciones === 20) incrementoTamano = 5000;
+            if(porciones === 30) incrementoTamano = 10000;
+
+            const contPers = document.getElementById('contenedor-personalizacion');
+            if(selectTorta.value === "Personalizada") {
+                if(contPers) contPers.classList.remove('hidden');
+            } else {
+                if(contPers) contPers.classList.add('hidden');
+            }
+
+            const fechaInput = document.getElementById('fecha');
+            const textoAlerta = document.getElementById('texto-alerta-fecha');
+            let diasAnticipacion = (selectTorta.value === "Personalizada") ? 5 : 2; 
+            
+            let fechaMinima = new Date();
+            fechaMinima.setDate(fechaMinima.getDate() + diasAnticipacion);
+            
+            let year = fechaMinima.getFullYear();
+            let month = String(fechaMinima.getMonth() + 1).padStart(2, '0');
+            let day = String(fechaMinima.getDate()).padStart(2, '0');
+            let minDateFormateada = `${year}-${month}-${day}`;
+            
+            fechaInput.min = minDateFormateada;
+
+            if(fechaInput.value && fechaInput.value < minDateFormateada) {
+                fechaInput.value = "";
+                if(textoAlerta) textoAlerta.classList.remove('hidden'); 
+            } else {
+                if(textoAlerta) textoAlerta.classList.add('hidden'); 
+            }
+
+            const tipoEntrega = document.querySelector('input[name="tipo_entrega"]:checked').value;
+            let costoEnvio = 0;
+            const contDireccion = document.getElementById('contenedor-direccion');
+            const inpDireccion = document.getElementById('direccion');
+
+            if(tipoEntrega === "Domicilio") {
+                costoEnvio = 4500;
+                if(contDireccion) { contDireccion.classList.remove('hidden'); inpDireccion.required = true; }
+            } else {
+                if(contDireccion) { contDireccion.classList.add('hidden'); inpDireccion.required = false; }
+            }
+
+            let precioTotal = precioBase + incrementoTamano + costoEnvio;
+            const previewImg = document.getElementById('preview-img');
+            const fotoUsuario = document.getElementById('foto-base64').value;
+            
+            imagenSeleccionadaFinal = fotoUsuario || imgBase;
+            previewImg.src = imagenSeleccionadaFinal;
+
+            if(selectTorta.value === "Personalizada") {
+                const bizcochoSelect = document.getElementById('custom-bizcocho');
+                const bizTxt = bizcochoSelect.options[bizcochoSelect.selectedIndex].text;
+                document.getElementById('resumen-torta').innerText = `Personalizada (${bizTxt.replace(/[\u{1F300}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim()})`;
+            } else {
+                document.getElementById('resumen-torta').innerText = nombreTorta;
+            }
+
+            document.getElementById('resumen-porciones').innerText = porciones + "p";
+            document.getElementById('resumen-envio').innerText = costoEnvio > 0 ? "+$4.500" : "Gratis";
+            document.getElementById('resumen-total').innerText = "$" + precioTotal.toLocaleString('es-CL');
+        }
+
+        function cargarPrevisualizacionUsuario(event) {
+            const file = event.target.files[0];
+            if(file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const b64 = e.target.result;
+                    document.getElementById('foto-base64').value = b64; 
+                    actualizarResumen(); 
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function procesarPedido(e) {
+            e.preventDefault();
+            if(selectTorta.selectedIndex <= 0) {
+                alert("Por favor selecciona un tipo de torta.");
+                return;
+            }
+
+            const nombre = document.getElementById('nombre').value;
+            const fonoInput = document.getElementById('fono').value;
+            const fono = "+569" + fonoInput; 
+            const email = document.getElementById('email').value;
+            const fecha = document.getElementById('fecha').value;
+            const torta = selectTorta.value;
+            const porciones = document.querySelector('input[name="porciones"]:checked').value;
+            const forma = document.getElementById('forma').value;
+            const tipoEntrega = document.querySelector('input[name="tipo_entrega"]:checked').value;
+            const notas = document.getElementById('notas').value;
+            
+            let direccionInfo = "";
+            if (tipoEntrega === "Domicilio") {
+                const textDirec = document.getElementById('direccion').value;
+                direccionInfo = ` | Dir: ${textDirec}`;
+            }
+
+            let personalizacionData = null;
+            let resumenTexto = `${torta} (${forma}, ${porciones}p)${direccionInfo}`;
+            
+            if(torta === "Personalizada") {
+                const biz = document.getElementById('custom-bizcocho').value;
+                const rel1 = document.getElementById('custom-relleno1').value;
+                const cubierta = document.getElementById('custom-cubierta').value;
+                
+                personalizacionData = { bizcocho: biz, relleno1: rel1, relleno2: cubierta };
+
+                const bizTxt = document.getElementById('custom-bizcocho').options[document.getElementById('custom-bizcocho').selectedIndex].text.replace(/[\u{1F300}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+                const rel1Txt = document.getElementById('custom-relleno1').options[document.getElementById('custom-relleno1').selectedIndex].text.replace(/[\u{1F300}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+                const cubiertaTxt = document.getElementById('custom-cubierta').options[document.getElementById('custom-cubierta').selectedIndex].text.replace(/[\u{1F300}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+                
+                resumenTexto = `100% Personalizada (Bizcocho: ${bizTxt}, Relleno: ${rel1Txt}, Cubierta: ${cubiertaTxt}) (${forma}, ${porciones}p)${direccionInfo}`;
+            }
+
+            const totalText = document.getElementById('resumen-total').innerText;
+            const precioTotal = parseInt(totalText.replace(/[^0-9]/g, ''));
+            const idOrden = Math.floor(Math.random() * 1000) + 4000;
+
+            const nuevoPedido = {
+                id: idOrden,
+                cliente: nombre,
+                fono: fono,
+                email: email, 
+                fecha: fecha,
+                torta: torta,
+                entrega: tipoEntrega,
+                resumen: resumenTexto,
+                notas: notas,
+                precio: precioTotal,
+                estado: "Cotizado",
+                img: imagenSeleccionadaFinal,
+                personalizacion: personalizacionData,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            // ===== GUARDADO DIRECTO EN LA NUBE (FIREBASE) =====
+            db.collection("pedidos").add(nuevoPedido)
+            .then((docRef) => {
+                document.getElementById('pantalla-formulario').classList.add('hidden');
+                document.getElementById('pantalla-exito').classList.replace('hidden', 'flex');
+
+                document.getElementById('exito-nombre').innerText = nombre.split(" ")[0]; 
+                document.getElementById('exito-orden').innerText = `#${idOrden}`;
+                document.getElementById('exito-img').src = imagenSeleccionadaFinal;
+                document.getElementById('exito-resumen').innerText = nuevoPedido.resumen;
+                document.getElementById('exito-precio').innerText = `$${precioTotal.toLocaleString('es-CL')}`;
+                
+                const lblEntrega = document.getElementById('exito-entrega');
+                lblEntrega.innerHTML = `<span class="material-symbols-outlined text-[14px]">` + (tipoEntrega === 'Domicilio' ? 'local_shipping' : 'storefront') + `</span> ` + tipoEntrega;
+                
+                if(tipoEntrega === "Retiro") {
+                    lblEntrega.className = "text-[10px] font-bold bg-pink-100 text-primary px-2 py-1 rounded-md border border-pink-200 flex items-center gap-1 uppercase tracking-wider";
+                } else {
+                    lblEntrega.className = "text-[10px] font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded-md border border-blue-200 flex items-center gap-1 uppercase tracking-wider";
+                }
+            })
+            .catch((error) => {
+                console.error("Error conectando a la base de datos: ", error);
+                alert("Hubo un error al procesar el pedido. Intenta nuevamente.");
+            });
+        }
+
+        window.onload = inicializarCatalogo;
+    </script>
+</body>
+</html>
