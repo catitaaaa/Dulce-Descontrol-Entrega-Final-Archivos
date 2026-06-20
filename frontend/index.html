@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Dulce Descontrol - Inicio</title>
+     <link rel="icon" type="image/png" href="logo_dulce_descontrol.png" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: "#9a3a5a", "primary-container": "#b95272", background: "#fdf8fb", surface: "#fdf8fb", "surface-container-lowest": "#ffffff", "on-surface": "#1c1b1d", "on-surface-variant": "#544246" },
+                    fontFamily: { sans: ["Montserrat"] }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-[#F3EEF1] text-on-surface antialiased min-h-screen flex flex-col font-sans">
+
+    <header class="fixed top-0 left-0 w-full z-50 flex items-center px-4 sm:px-6 h-16 md:h-20 bg-[#F3EEF1] shadow-md">
+    
+        <div class="flex-1 flex justify-start">
+            <a href="index.html" class="flex items-center">
+                <img src="logo_horizontalDC.png" alt="Dulce Descontrol" class="h-10 md:h-14 object-contain drop-shadow-sm hover:opacity-90 transition-opacity">
+            </a>
+        </div>
+        
+        <nav class="hidden lg:flex gap-8 font-bold text-base text-gray-700 items-center shrink-0">
+            <a class="text-primary border-b-2 border-primary px-1" href="#">Inicio</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors px-1" href="#catalogo">Catálogo</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors px-1" href="#historia">Nuestra Historia</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors px-1" href="#condiciones-pedido">Condiciones</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors px-1" href="#contacto">Contacto</a>
+        </nav>
+        
+        <div class="flex-1 justify-end hidden lg:flex">
+            <a href="admin.html" class="flex items-center gap-1 text-on-surface-variant hover:text-primary font-medium text-sm">
+                <span class="material-symbols-outlined text-xl">shield_person</span> Admin
+            </a>
+        </div>
+
+        <div class="flex flex-1 justify-end lg:hidden">
+            <button onclick="document.getElementById('menu-movil').classList.toggle('hidden')" class="text-primary p-2">
+                <span class="material-symbols-outlined text-3xl">menu</span>
+            </button>
+        </div>
+        
+    </header>
+
+    <div id="menu-movil" class="hidden fixed top-16 left-0 w-full bg-white shadow-lg z-40 lg:hidden flex flex-col font-bold text-gray-700 border-t border-gray-100">
+        <a class="p-4 border-b border-gray-100 text-primary" href="#" onclick="document.getElementById('menu-movil').classList.add('hidden')">Inicio</a>
+        <a class="p-4 border-b border-gray-100 hover:text-primary" href="#catalogo" onclick="document.getElementById('menu-movil').classList.add('hidden')">Catálogo</a>
+        <a class="p-4 border-b border-gray-100 hover:text-primary" href="#historia" onclick="document.getElementById('menu-movil').classList.add('hidden')">Nuestra Historia</a>
+        <a class="p-4 border-b border-gray-100 hover:text-primary" href="#condiciones-pedido" onclick="document.getElementById('menu-movil').classList.add('hidden')">Condiciones</a>
+        <a class="p-4 border-b border-gray-100 hover:text-primary" href="#contacto" onclick="document.getElementById('menu-movil').classList.add('hidden')">Contacto</a>
+        <a class="p-4 bg-pink-50 text-primary flex items-center gap-2" href="admin.html">
+            <span class="material-symbols-outlined">shield_person</span> Acceso Admin
+        </a>
+    </div>
+
+    <main class="pt-24 px-4 md:px-8 max-w-6xl mx-auto w-full flex-grow">
+            
+        <section class="mt-4 relative rounded-2xl overflow-hidden shadow-lg h-72 md:h-[380px] flex items-center justify-center">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('portada3.jpg');"></div>
+            <div class="absolute inset-0 bg-black/30 backdrop-blur-[1px]"></div>
+            <div class="relative z-10 text-center px-4">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-2 drop-shadow-md">Pastelería Artesanal de Autor</h2>
+                <p class="text-white text-base md:text-lg mb-6 max-w-xl mx-auto font-medium drop-shadow-md">Diseños personalizados y sabores inolvidables para tus celebraciones.</p>
+                <a href="pedir.html" class="inline-flex items-center gap-2 bg-[#D56989] text-white font-bold px-6 py-3 rounded-full hover:bg-primary transition-all shadow-md">
+                    Diseñar Pedido <span class="material-symbols-outlined text-lg">cake</span>
+                </a>
+            </div>
+        </section>
+
+        <section id="catalogo" class="mt-10">
+            <div class="text-center mb-6">
+                <h3 class="text-3xl font-bold text-primary">Nuestros Clásicos</h3>
+                <p class="text-on-surface-variant mt-1">Pídelos directo o úsalos de inspiración.</p>
+            </div>
+            
+            <div id="contenedor-tarjetas-publicas-catalogo" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <p class="text-center text-gray-400 col-span-full">Cargando delicias...</p>
+            </div>
+        </section>
+
+        <section id="historia" class="mt-16 max-w-4xl mx-auto">
+            <div class="bg-white rounded-3xl shadow-sm border border-pink-100 overflow-hidden flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 p-6 md:p-8">
+                    <span class="text-sm font-bold text-[#D56989] uppercase tracking-wider mb-1 block">Conócenos</span>
+                    <h2 class="text-3xl font-bold text-primary mb-2">La Magia de Martina</h2>
+                    
+                    <p class="text-gray-600 mb-2 leading-relaxed text-sm md:text-base text-justify italic font-light">
+                        En Dulce Descontrol creemos que los mejores recuerdos comienzan con algo dulce. Nacimos de la pasión de Martina por la repostería artesanal y del deseo de compartir sabores auténticos, elaborados con dedicación y cariño en cada detalle.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed text-sm md:text-base text-justify italic font-light">
+                        Lo que comenzó entre recetas familiares y tardes de horneado, hoy se ha convertido en un espacio para quienes disfrutan de la repostería artesanal. Elaboramos cada bizcocho, relleno y crema desde cero, con ingredientes cuidadosamente seleccionados y sin premezclas ni conservantes, para garantizar frescura, calidad y sabor en cada bocado. Más que postres, buscamos crear momentos y recuerdos dulces e inolvidables.
+                    </p>
+                </div>
+                <div class="md:w-1/2 w-full h-48 md:h-full min-h-[250px]">
+                    <img src="historia2.jpg" alt="La historia de Dulce Descontrol" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </section>
+        <section id="condiciones-pedido" class="max-w-5xl mx-auto mt-24 bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-pink-100 relative z-10">
+
+            <div class="text-center mb-10">
+
+                <h2 class="text-3xl font-bold text-primary mb-3">Nuestros Tiempos y Condiciones</h2>
+
+                <p class="text-gray-500">Todo en Dulce Descontrol se hornea desde cero para garantizar la máxima frescura. Por eso, trabajamos con las siguientes anticipaciones:</p>
+
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <div class="bg-pink-50 p-6 rounded-2xl border border-pink-100 text-center hover:-translate-y-1 transition-transform">
+
+                    <span class="material-symbols-outlined text-4xl text-[#D56989] mb-3">timer</span>
+
+                    <h3 class="font-bold text-primary mb-2 text-lg">Catálogo Clásico</h3>
+
+                    <p class="text-sm text-gray-700">Mínimo <strong>48 horas</strong> de anticipación. Ideal para nuestras tortas de receta tradicional.</p>
+
+                </div>
+
+                
+
+                <div class="bg-pink-50 p-6 rounded-2xl border border-pink-100 text-center hover:-translate-y-1 transition-transform">
+
+                    <span class="material-symbols-outlined text-4xl text-[#D56989] mb-3">edit_calendar</span>
+
+                    <h3 class="font-bold text-primary mb-2 text-lg">Tortas Personalizadas</h3>
+
+                    <p class="text-sm text-gray-700">Mínimo <strong>5 días</strong> de anticipación. Requieren planificación de diseño y decoraciones únicas.</p>
+
+                </div>
+
+                
+
+                <div class="bg-pink-50 p-6 rounded-2xl border border-pink-100 text-center hover:-translate-y-1 transition-transform">
+
+                    <span class="material-symbols-outlined text-4xl text-[#D56989] mb-3">verified</span>
+
+                    <h3 class="font-bold text-primary mb-2 text-lg">Agendamiento Seguro</h3>
+
+                    <p class="text-sm text-gray-700">Tu pedido se agenda y comienza su producción oficial solo tras realizar el <strong>abono del 50%</strong>.</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <section id="contacto" class="mt-24 mb-16">
+
+            <div class="bg-primary-fixed/30 rounded-3xl p-8 border border-primary-fixed">
+
+                <div class="text-center mb-8">
+
+                    <h3 class="text-3xl font-bold text-primary">¡Hablemos de tu próximo pastel!</h3>
+
+                    <p class="text-on-surface-variant mt-2">Visítanos en nuestra pastelería o escríbenos por redes sociales.</p>
+
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+
+                    
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm hover:scale-105 transition-transform duration-300 cursor-pointer">
+
+                        <span class="material-symbols-outlined text-4xl text-[#D56989] mb-2">location_on</span>
+
+                        <h4 class="font-bold text-primary">Tienda Física</h4>
+
+                        <p class="text-sm text-gray-600 mt-1">Av. Las Violetas 1245,<br>Local 4, Santiago</p>
+
+                    </div>
+
+                    
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm hover:scale-105 transition-transform duration-300 cursor-pointer">
+
+                        <span class="material-symbols-outlined text-4xl text-[#D56989] mb-2">phone_iphone</span>
+
+                        <h4 class="font-bold text-primary">WhatsApp</h4>
+
+                        <p class="text-sm text-gray-600 mt-1">+56 9 8765 4321<br>Respuestas rápidas</p>
+
+                    </div>
+
+                    
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm hover:scale-105 transition-transform duration-300 cursor-pointer">
+
+                        <span class="material-symbols-outlined text-4xl text-[#D56989] mb-2">alternate_email</span>
+
+                        <h4 class="font-bold text-primary">Correo</h4>
+
+                        <p class="text-sm text-gray-600 mt-1">pedidos@<br>dulcedescontrol.cl</p>
+
+                    </div>
+
+                    
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm hover:scale-105 transition-transform duration-300 cursor-pointer">
+
+                        <span class="material-symbols-outlined text-4xl text-[#D56989] mb-2">photo_camera</span>
+
+                        <h4 class="font-bold text-primary">Instagram</h4>
+
+                        <p class="text-sm text-gray-600 mt-1">@DulceDescontrol_CL<br>¡Mira nuestros trabajos!</p>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <footer class="bg-white border-t py-6 text-center text-sm text-gray-500">
+
+        <p>© 2026 Dulce Descontrol. Todos los derechos reservados.</p>
+
+    </footer>
+
+</body>
+
+</html> 
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const contenedor = document.getElementById('contenedor-tarjetas-publicas-catalogo');
+
+        
+        // 1. Intentamos obtener los datos
+        let catalogo = JSON.parse(localStorage.getItem('catalogo_recetas'));
+
+        // 2. SI NO HAY DATOS (Es la primera vez que entran), cargamos los clásicos
+        if (!catalogo || catalogo.length === 0) {
+            catalogo = [
+                { id: 1, nombre: "Torta Red Velvet", precio: 28900, estructuraIng: [{insumo:"harina"},{insumo:"azucar"},{insumo:"crema"},{insumo:"mantequilla"},{insumo:"huevo"}], img: "https://images.unsplash.com/photo-1616541823729-00fe0aacd32c?w=500&q=80" },
+                { id: 2, nombre: "Tiramisú Premium", precio: 26500, estructuraIng: [{insumo:"azucar"},{insumo:"crema"},{insumo:"huevo"}], img: "Tiramisu.jpg" },
+                { id: 3, nombre: "Tres Leches", precio: 24900, estructuraIng: [{insumo:"harina"},{insumo:"azucar"},{insumo:"mantequilla"},{insumo:"huevo"}], img: "Tres-Leches.jpg" },
+                { id: 4, nombre: "Tarta de Manzana", precio: 19900, estructuraIng: [{insumo:"harina"},{insumo:"mantequilla"},{insumo:"manzana"},{insumo:"huevo"}], img: "tarta-de-manzana.jpg" },
+                { id: 5, nombre: "Pie de Limón", precio: 18500, estructuraIng: [{insumo:"harina"},{insumo:"mantequilla"},{insumo:"huevo"}], img: "pie-limon.jpg" },
+                { id: 6, nombre: "Pastel de Zanahoria", precio: 27000, estructuraIng: [{insumo:"harina"},{insumo:"zanahoria"},{insumo:"huevo"}], img: "Pastel-de-zanahoria.jpg" }
+            ];
+            // Guardamos esto en la memoria para que el resto del sitio lo encuentre
+            localStorage.setItem('catalogo_recetas', JSON.stringify(catalogo));
+        }
+
+        // 3. Diccionario y dibujo (Tu lógica original, que está perfecta)
+        const valoracionesFijas = {
+            "Torta Red Velvet": '<span class="text-yellow-500 font-bold">★★★★★</span> "El bizcocho es súper húmedo, 10/10." - Carla T.',
+            "Tiramisú Premium": '<span class="text-yellow-500 font-bold">★★★★★</span> "Igual al de Italia, espectacular." - Pedro M.',
+            "Tres Leches": '<span class="text-yellow-500 font-bold">★★★★☆</span> "Muy rica, dulce en su punto exacto." - Andrés S.',
+            "Tarta de Manzana": '<span class="text-yellow-500 font-bold">★★★★★</span> "Aroma a casa de abuela, divina." - Lucia V.',
+            "Pie de Limón": '<span class="text-yellow-500 font-bold">★★★★★</span> "El toque de acidez perfecto." - Matías F.',
+            "Pastel de Zanahoria": '<span class="text-yellow-500 font-bold">★★★★★</span> "Mi favorita, tiene trocitos de nuez!" - Sofía M.'
+        };
+
+        if(contenedor) {
+            let html = "";
+            catalogo.forEach(r => {
+                let listaIngredientes = "Receta de la casa.";
+                if(r.estructuraIng && r.estructuraIng.length > 0) {
+                    const dic = { "harina": "Harina", "azucar": "Azúcar", "crema": "Queso Crema premium", "mantequilla": "Mantequilla", "zanahoria": "Zanahoria fresca", "manzana": "Manzanas Fuji", "huevo": "Huevos" };
+                    let ing = r.estructuraIng.map(i => dic[i.insumo] || i.insumo.charAt(0).toUpperCase() + i.insumo.slice(1));
+                    listaIngredientes = ing.join(", ") + ".";
+                }
+
+                let valoracionHTML = valoracionesFijas[r.nombre] || '<span class="bg-pink-100 text-primary font-bold text-[10px] uppercase px-2 py-0.5 rounded mr-1">Nueva</span> <span class="text-gray-600">Aún no hay reseñas. ¡Sé la primera persona en probarla!</span>';
+
+                html += `
+                <article class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col hover:scale-[1.02] transition-transform duration-300">
+                    <img class="w-full h-48 object-cover rounded-xl mb-3" src="${r.img}" alt="${r.nombre}">
+                    <h4 class="text-xl font-bold text-primary">${r.nombre}</h4>
+                    <p class="text-xs text-on-surface-variant mt-1 mb-2"><strong>Ingredientes principales:</strong> ${listaIngredientes}</p>
+                    <div class="bg-gray-50 p-2 rounded-lg mb-4 text-xs italic text-gray-600 border-l-2 border-primary flex items-center">
+                        ${valoracionHTML}
+                    </div>
+                    <div class="flex justify-between items-center mt-auto border-t pt-3">
+                        <span class="text-xl font-bold text-[#D56989]">$${r.precio.toLocaleString('es-CL')}</span>
+                        <a href="pedir.html?torta=${encodeURIComponent(r.nombre)}" class="bg-primary text-white text-xs font-bold px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">Cotizar</a>
+                    </div>
+                </article>`;
+            });
+            contenedor.innerHTML = html;
+        }
+    });
+</script>
