@@ -15,7 +15,7 @@ Para demostrar el aprendizaje progresivo de la asignatura, la aplicación se ent
 
 ### 1. Versión Local (Requisito de la Rúbrica)
 Esta es la versión principal evaluable. Utiliza almacenamiento local (`localStorage`) para gestionar los pedidos sin depender de bases de datos externas. El código fuente está en la carpeta `/frontend`.
-👉 **[Ver Aplicación Web Funcionando Aquí](https://AQUI_PONES_TU_USUARIO.github.io/AQUI_PONES_TU_REPOSITORIO/frontend/index.html)**
+👉 **[Ver Aplicación Web Funcionando Aquí](https://catitaaaa.github.io/Dulce-Descontrol-Local/index.html)**
 
 ### 2. Versión Avanzada Cloud (Firebase)
 Esta es una versión extra (Bonus). Está conectada a la nube mediante Google Firestore, permitiendo que la tienda y el panel de administración se sincronicen en tiempo real en distintos computadores. El código fuente está en la carpeta `/version-firebase`.
