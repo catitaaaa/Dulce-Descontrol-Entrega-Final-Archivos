@@ -3,7 +3,7 @@
 Bienvenido al repositorio oficial del proyecto de software "Dulce Descontrol".
 
 ## 📌 Enlaces Obligatorios de la Entrega
-- **Video Pitch (Demostración):** [Haz clic aquí para ver el video en YouTube](AQUÍ_PEGA_TU_LINK_DE_YOUTUBE)
+- **Video Pitch (Demostración):** [Haz clic aquí para ver el video en YouTube](https://drive.google.com/drive/folders/1bRVZwth9xvMfibRqEqIbF1du5_9BQh2d)
 - **Prototipo UI (Stitch):** [Haz clic aquí para ver el diseño en Stitch](https://stitch.withgoogle.com/preview/2712187069256834596?node-id=19283aa3433247c4a47a7c8eff089de8&raw=1)
 - **Documentación Completa:** El Informe Ejecutivo unificado (que incluye la Bitácora de Prompts y el desarrollo del proyecto) se encuentra en formato PDF dentro de la carpeta `/docs`.
 
